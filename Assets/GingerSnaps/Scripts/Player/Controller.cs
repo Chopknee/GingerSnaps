@@ -27,6 +27,8 @@ namespace GingerSnaps.Player {
 
 		public float slopeSlideTimeout = 0.15f;
 
+		public bool bAllowDoubleJump = false;
+
 		[Header ("Debugging Values")]
 
 		public bool bTouchingGroundWithFeet = false;
@@ -82,7 +84,7 @@ namespace GingerSnaps.Player {
 		}
 		
 		private void Update() {
-			if (bJumped && bTouchingGroundWithFeet && !bFreefalling && !bPostJumpDelay) {//Reallowing the player to move normally after jumping.
+			if (bJumped && bTouchingGroundWithFeet && !bFreefalling && !bPostJumpDelay && !bSlidingDownSlope) {//Reallowing the player to move normally after jumping.
 				bJumped = false;
 				bJumpedAgain = false;
 			}
@@ -241,7 +243,7 @@ namespace GingerSnaps.Player {
 				bPostJumpDelay = true;
 				_postJumpDelay = 0.0f;
 				bApplyJumpVelocity = true;
-			} else if (bJumped && !bJumpedAgain) {
+			} else if (bJumped && !bJumpedAgain && bAllowDoubleJump) {
 				bJumpedAgain = true;
 				bPostJumpDelay = true;
 				_postJumpDelay = 0.0f;
