@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 //Generic setup for dealing with input.
 
+///im helping
+
 namespace GingerSnaps {
 	public class Input : MonoBehaviour {
 
