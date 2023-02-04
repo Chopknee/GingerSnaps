@@ -19,7 +19,7 @@ namespace GingerSnaps.Scenes.PlatformTesting {
 			playerCamera.target = player.transform;
 			playerCamera.forwardAngle = (Vector3.forward * 2.0f + Vector3.down).normalized;
 			playerCamera.transform.forward = playerCamera.forwardAngle;
-			playerCamera.followDistance = 18.0f;
+			playerCamera.followDistance = 23.0f;
 
 			camera = transform.Find("Camera").GetComponent<Camera>();
 			camera.transform.SetParent(playerCamera.transform);
