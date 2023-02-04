@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoreControl : MonoBehaviour
 {
@@ -19,7 +20,8 @@ public class ScoreControl : MonoBehaviour
         secRemain -= Time.deltaTime;
         if (secRemain <= 0){
                 secRemain = 0;
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+        
     }
 }
