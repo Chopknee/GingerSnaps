@@ -6,6 +6,8 @@ using UnityEngine.Rendering.PostProcessing;
 namespace GingerSnaps.PPFx {
 	public class SickProfileManager : Dugan.TimeAnimation {
 
+		private PostProcessVolume volume = null;
+
 		private PPFx.Distortion.Distortion distortionEffect = null;
 		private ChromaticAberration chromaticAberrationEffect = null;
 
@@ -14,9 +16,11 @@ namespace GingerSnaps.PPFx {
 		private float targetCAIntensity = 0.0f;
 
 		private void Awake() {
-			PostProcessVolume layer = GetComponent<PostProcessVolume>();
-			layer.profile.TryGetSettings<PPFx.Distortion.Distortion>(out distortionEffect);
-			layer.profile.TryGetSettings<ChromaticAberration>(out chromaticAberrationEffect);
+			volume = gameObject.AddComponent<PostProcessVolume>();
+			volume.isGlobal = true;
+			volume.profile = Resources.Load<PostProcessProfile>("GingerSnaps/PPFx/SickEffectProfile");
+			volume.profile.TryGetSettings<PPFx.Distortion.Distortion>(out distortionEffect);
+			volume.profile.TryGetSettings<ChromaticAberration>(out chromaticAberrationEffect);
 
 			targetDistortionScale = distortionEffect.scale.value;
 			targetDistortionImpact = distortionEffect.impact.value;
