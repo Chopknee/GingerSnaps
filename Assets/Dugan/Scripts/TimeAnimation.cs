@@ -5,16 +5,14 @@ using UnityEngine;
 namespace Dugan {
 	public class TimeAnimation : MonoBehaviour {
 		
-		public delegate void AnimationUpdateDelegate(float a);
-		public AnimationUpdateDelegate OnAnimationUpdate;
-
 		public delegate void AnimationEvent();
 		public AnimationEvent OnAnimationComplete;
 		public AnimationEvent OnSetDirection;
+		public AnimationEvent OnAnimationUpdate;
 
 		private float seconds = 0;
 
-		private float direction = 1;
+		private int direction = 1;
 
 		private bool bPaused = false;
 		private bool bComplete = false;
@@ -41,8 +39,8 @@ namespace Dugan {
 			return bPlaying;
 		}
 
-		public void SetDirection(float value, bool bInstant = false) {
-			float newDir = UnityEngine.Mathf.Sign(value);
+		public void SetDirection(int value, bool bInstant = false) {
+			int newDir = (int)UnityEngine.Mathf.Sign(value);
 
 			// if (newDir == direction && bPlaying)
 			// 	return;
@@ -64,7 +62,7 @@ namespace Dugan {
 					alpha = 0;
 
 				if (OnAnimationUpdate != null)
-					OnAnimationUpdate(alpha);
+					OnAnimationUpdate();
 
 				bPlaying = false;
 				if (OnAnimationComplete != null) {
@@ -73,7 +71,7 @@ namespace Dugan {
 			}
 		}
 
-		public float GetDirection() {
+		public int GetDirection() {
 			return direction;
 		}
 
@@ -122,7 +120,7 @@ namespace Dugan {
 				}
 
 				if (OnAnimationUpdate != null)
-					OnAnimationUpdate(alpha);
+					OnAnimationUpdate();
 
 				if (bComplete) {
 					bPlaying = false;

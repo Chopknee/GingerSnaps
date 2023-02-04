@@ -15,7 +15,7 @@ namespace GingerSnaps.Scenes.Game {
 			playerCamera = new GameObject("PlayerCamera").AddComponent<Player.CameraController>();
 			playerCamera.transform.SetParent(player.transform);
 			playerCamera.target = player.transform;
-			playerCamera.targetOffset = new Vector3(0.0f, 1.75f, 0.0f);
+			playerCamera.targetOffset = new Vector3(0.0f, 1.0f, 0.0f);
 			playerCamera.collisionMask = 1 << 0;//Default layer
 
 			player.viewpoint = playerCamera.transform;
@@ -27,6 +27,10 @@ namespace GingerSnaps.Scenes.Game {
 			camera.transform.localPosition = Vector3.zero;
 			camera.transform.localScale = Vector3.one;
 			camera.transform.localRotation = Quaternion.identity;
+
+			Popups.HUD.Popup hud = Dugan.PopupManager.Load<Popups.HUD.Popup>();
+			hud.PostAwake();
+			hud.SetDirection(1);
 		}
 
 	}

@@ -47,7 +47,8 @@ namespace Dugan {
 			}
 		}
 
-		private void OnAnimationUpdate(float a) {
+		private void OnAnimationUpdate() {
+			float a = timeAnimation.GetNormalizedTime();
 			a = Dugan.Mathf.Easing.EaseInOutQuart(a);
 			transform.position = Vector3.Lerp(startPosition, endPosition, a);
 			transform.rotation = Quaternion.Lerp(startLookDirection, endLookDirection, a);
