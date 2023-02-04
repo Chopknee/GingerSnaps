@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace GingerSnaps.Scenes.PlatformTesting {
 	public class Scene : MonoBehaviour {
@@ -9,6 +10,8 @@ namespace GingerSnaps.Scenes.PlatformTesting {
 
 		private Player.Controller player = null;
 		private Player.CameraControllerFixedAngle playerCamera = null;
+
+		private PPFx.SickProfileManager sickScreenEffect = null;
 
 		private void Awake() {
 			player = transform.Find("Player").gameObject.AddComponent<Player.Controller>();
@@ -33,6 +36,15 @@ namespace GingerSnaps.Scenes.PlatformTesting {
 			Popups.HUD.Popup hud = Dugan.PopupManager.Load<Popups.HUD.Popup>();
 			hud.PostAwake();
 			hud.SetDirection(1);
+
+			sickScreenEffect = gameObject.AddComponent<PPFx.SickProfileManager>();
+
+			Invoke("Wait", 5.0f);
+			
+		}
+
+		private void Wait() {
+			sickScreenEffect.SetDirection(1);
 		}
 
 	}

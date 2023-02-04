@@ -6,20 +6,20 @@ namespace Dugan {
 	public class TimeAnimation : MonoBehaviour {
 		
 		public delegate void AnimationEvent();
-		public AnimationEvent OnAnimationComplete;
-		public AnimationEvent OnSetDirection;
-		public AnimationEvent OnAnimationUpdate;
+		public AnimationEvent AnimationCompleteCallback;
+		public AnimationEvent SetDirectionCallback;
+		public AnimationEvent AnimationUpdateCallback;
 
-		private float seconds = 0;
+		protected float seconds = 0;
 
-		private int direction = 1;
+		protected int direction = 1;
 
-		private bool bPaused = false;
-		private bool bComplete = false;
+		protected bool bPaused = false;
+		protected bool bComplete = false;
 
-		private float alpha = 0;
+		protected float alpha = 0;
 
-		private bool bPlaying = false;
+		protected bool bPlaying = false;
 
 		public bool bUseUnscaledDeltaTime = false;
 
@@ -41,19 +41,13 @@ namespace Dugan {
 
 		public void SetDirection(int value, bool bInstant = false) {
 			int newDir = (int)UnityEngine.Mathf.Sign(value);
-
-			// if (newDir == direction && bPlaying)
-			// 	return;
 				
 			direction = newDir;
 			bComplete = bInstant;
 			bPlaying = true;
 
-			if (OnSetDirection != null)
-				OnSetDirection();
-
-			// if (OnAnimationUpdate != null)
-			// 	OnAnimationUpdate(alpha);
+			if (SetDirectionCallback != null)
+				SetDirectionCallback();
 
 			if (bInstant) {
 				if (direction == 1)
@@ -61,12 +55,12 @@ namespace Dugan {
 				else if (direction == -1)
 					alpha = 0;
 
-				if (OnAnimationUpdate != null)
-					OnAnimationUpdate();
+				if (AnimationUpdateCallback != null)
+					AnimationUpdateCallback();
 
 				bPlaying = false;
-				if (OnAnimationComplete != null) {
-					OnAnimationComplete();
+				if (AnimationCompleteCallback != null) {
+					AnimationCompleteCallback();
 				}
 			}
 		}
@@ -95,7 +89,7 @@ namespace Dugan {
 			return alpha;
 		}
 
-		public void Update() {
+		protected virtual void Update() {
 			ManualUpdate();
 		}
 
@@ -119,13 +113,13 @@ namespace Dugan {
 					}
 				}
 
-				if (OnAnimationUpdate != null)
-					OnAnimationUpdate();
+				if (AnimationUpdateCallback != null)
+					AnimationUpdateCallback();
 
 				if (bComplete) {
 					bPlaying = false;
-					if (OnAnimationComplete != null)
-						OnAnimationComplete();
+					if (AnimationCompleteCallback != null)
+						AnimationCompleteCallback();
 				}
 
 			}

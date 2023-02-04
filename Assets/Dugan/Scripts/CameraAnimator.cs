@@ -22,8 +22,8 @@ namespace Dugan {
 		private void Awake() {
 			timeAnimation = gameObject.AddComponent<Dugan.TimeAnimation>();
 			timeAnimation.SetDirection(-1, true);
-			timeAnimation.OnAnimationUpdate += OnAnimationUpdate;
-			timeAnimation.OnAnimationComplete += OnAnimationComplete;
+			timeAnimation.AnimationUpdateCallback += OnAnimationUpdate;
+			timeAnimation.AnimationCompleteCallback += OnAnimationComplete;
 		}
 
 		public void MoveToTime(Vector3 endPosition, Vector3 endLookDirection, float duration) {
