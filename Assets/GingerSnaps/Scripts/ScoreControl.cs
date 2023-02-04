@@ -6,6 +6,7 @@ public class ScoreControl : MonoBehaviour
 {
     public float secRemain = 10f;
     public float score = 0f;
+    
     // Start is called before the first frame update
     void Start()
     {
