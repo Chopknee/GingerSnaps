@@ -24,14 +24,15 @@ namespace GingerSnaps.Popups.Intro {
 			btnQuit.OnPointerUp += OnClickBtnQuit;
 
 			base.Awake();
+			base.PostAwake();
 		}
 
 		private void OnClickBtnStart(Dugan.Input.PointerTarget target, string args) {
-			Debug.Log("Clicked Button start!");
+			SetDirection(-1);
 		}
 
 		private void OnClickBtnQuit(Dugan.Input.PointerTarget target, string args) {
-			Debug.Log("Clicked Button quit!");
+			Application.Quit();
 		}
 
 		protected override void OnResize() {
