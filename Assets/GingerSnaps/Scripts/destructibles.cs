@@ -8,6 +8,8 @@ public class destructibles : MonoBehaviour
     public GameObject breakClone;
     public float scoreValue = 2f;
     private GameObject control;
+
+    public bool CatCanBreak = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,14 +22,17 @@ public class destructibles : MonoBehaviour
         
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision col)
     {
-        Debug.Log(collision.relativeVelocity.magnitude);
-        if (collision.relativeVelocity.magnitude > breakForce){
-        Debug.Log("break");
+        Debug.Log(col.relativeVelocity.magnitude);
+        if (col.relativeVelocity.magnitude > breakForce){
+            if (col.gameObject.tag != "Player" || CatCanBreak){
+             Debug.Log("break");
             Instantiate(breakClone,transform.position,transform.rotation);
             Destroy(gameObject);
             control.gameObject.GetComponent<ScoreControl>().score += scoreValue;
+            }
+       
         }
     
     }
