@@ -63,7 +63,7 @@ namespace GingerSnaps {
 		}
 
 		private void OnApplicationFocus() {
-			Cursor.lockState = CursorLockMode.Locked;
+			// Cursor.lockState = CursorLockMode.Locked;
 		}
 
 		private void Update() {
@@ -132,7 +132,7 @@ namespace GingerSnaps {
 			if (_Instance != null)
 				return;
 
-			_Instance = new GameObject("HammyFarmer.Input").AddComponent<Input>();
+			_Instance = new GameObject("GingerSnaps.Input").AddComponent<Input>();
 			DontDestroyOnLoad(_Instance.gameObject);
 		}
 

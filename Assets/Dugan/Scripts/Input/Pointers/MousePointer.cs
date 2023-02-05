@@ -7,9 +7,11 @@ namespace Dugan.Input.Pointers {
 		//Static Functions
 		public static Pointer mousePointer = null;
 
+		private static bool bLastPressed = false;
+
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 		private static void Init() {//Only add a mouse pointer if unity can detect a mouse
-			if (UnityEngine.Input.mousePresent)
+			if (UnityEngine.InputSystem.Mouse.current != null)
 				PointerManager.AddPointerUpdateEvent(UpdateMousePointer);
 
 			mousePointer = new Pointer();
@@ -18,19 +20,19 @@ namespace Dugan.Input.Pointers {
 		}
 
 		private static int UpdateMousePointer() {
-			if (mousePointer.state == Pointer.ClickState.Released && UnityEngine.Input.GetMouseButtonUp(0))
-				mousePointer.state = Pointer.ClickState.Hover;//
-
 			mousePointer.state = Pointer.ClickState.Hover;//Hover is default state for mouse cursor.
+			bool bCurrentPressed = UnityEngine.InputSystem.Mouse.current.leftButton.isPressed;
 
-			if (UnityEngine.Input.GetMouseButtonDown(0))
+			if (bCurrentPressed && !bLastPressed)
 				mousePointer.state = Pointer.ClickState.Down;
-			else if (UnityEngine.Input.GetMouseButtonUp(0))
-				mousePointer.state = Pointer.ClickState.Up;
-			else if (UnityEngine.Input.GetMouseButton(0))
+			if (bCurrentPressed && bLastPressed)
 				mousePointer.state = Pointer.ClickState.Held;
+			if (!bCurrentPressed && bLastPressed)
+				mousePointer.state = Pointer.ClickState.Up;
 
-			mousePointer.Update(UnityEngine.Input.mousePosition);
+			mousePointer.Update(UnityEngine.InputSystem.Mouse.current.position.ReadValue());
+
+			bLastPressed = bCurrentPressed;
 
 			return 1;
 		}

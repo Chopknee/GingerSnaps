@@ -18,7 +18,7 @@ namespace GingerSnaps {
 			if (_Instance != null)
 				return;
 
-			_Instance = new GameObject("HammyFarmer.GameInstance").AddComponent<GameInstance>();
+			_Instance = new GameObject("GingerSnaps.GameInstance").AddComponent<GameInstance>();
 			DontDestroyOnLoad(_Instance.gameObject);
 		}
 
