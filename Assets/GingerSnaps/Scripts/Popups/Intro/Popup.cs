@@ -17,12 +17,10 @@ namespace GingerSnaps.Popups.Intro {
 
 			content = transform.Find("Content") as RectTransform;
 
-			btnStart = content.Find("BtnStart").gameObject.AddComponent<Dugan.UI.Button>();
-			btnStart.tintOnClick = true;
+			btnStart = content.Find("BtnStart").gameObject.AddComponent<UI.ButtonGraphics>().button;
 			btnStart.OnPointerUp += OnClickBtnStart;
 
-			btnQuit = content.Find("BtnQuit").gameObject.AddComponent<Dugan.UI.Button>();
-			btnQuit.tintOnClick = true;
+			btnQuit = content.Find("BtnQuit").gameObject.AddComponent<UI.ButtonGraphics>().button;
 			btnQuit.OnPointerUp += OnClickBtnQuit;
 
 			base.Awake();

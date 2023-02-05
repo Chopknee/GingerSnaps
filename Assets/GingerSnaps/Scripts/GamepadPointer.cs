@@ -10,7 +10,7 @@ namespace GingerSnaps {
 
 		private static bool bLastPressed = false;
 
-		public static Vector2 position = Vector2.zero;
+		private static Vector2 position = Vector2.zero;
 		public static float speed = 1000.0f;
 
 		private static Popups.GamepadCursor.Popup cursorPopup = null;
@@ -26,7 +26,6 @@ namespace GingerSnaps {
 			cursorPopup = Dugan.PopupManager.Load<Popups.GamepadCursor.Popup>(true);
 			cursorPopup.PostAwake();
 			GameObject.DontDestroyOnLoad(cursorPopup.gameObject);
-			Debug.Log("Initting gamepad.");
 		}
 
 		private static int UpdateGamepadPointer() {
@@ -35,15 +34,11 @@ namespace GingerSnaps {
 				return 0;
 			}
 
-			
-
 			gamepadPointer.active = true;
 
 			Gamepad pad = Gamepad.current;
 			Vector2 delta = new Vector2(pad.rightStick.x.ReadValue(), pad.rightStick.y.ReadValue()) * speed * Time.deltaTime;
 			position += delta;
-
-			// Debug.Log("Updating " + delta + " " + position);
 
 			if (position.x < 0)
 				position.x = 0;
@@ -70,6 +65,10 @@ namespace GingerSnaps {
 			bLastPressed = bCurrentPressed;
 
 			return 1;
+		}
+
+		public static void SetPosition(Vector2 position) {
+			GamepadPointer.position = position;
 		}
 	}
 }
