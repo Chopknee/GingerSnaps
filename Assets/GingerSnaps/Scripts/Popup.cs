@@ -26,9 +26,9 @@ namespace GingerSnaps {
 			buttons = GetComponentsInChildren<Dugan.UI.Button>();
 			SetButtonsInteractive(false);//Give the buttons an initial interactive state
 
-			timeAnimation.OnAnimationUpdate += OnAnimationUpdate;
+			timeAnimation.AnimationUpdateCallback += OnAnimationUpdate;
 			timeAnimation.SetDirection(-1, true);
-			timeAnimation.OnAnimationComplete += OnAnimationCompleteInt;
+			timeAnimation.AnimationCompleteCallback += OnAnimationCompleteInt;
 			timeAnimation.SetDirection(1);
 		}
 
