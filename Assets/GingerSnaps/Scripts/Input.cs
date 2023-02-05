@@ -16,12 +16,14 @@ namespace GingerSnaps {
 		public static AggregatedControl cameraX = null;
 		public static AggregatedControl cameraY = null;
 		public static AggregatedControl jump = null;
+		public static AggregatedControl start = null;
 
 		private Control kbMoveX = null;
 		private Control kbMoveY = null;
 		private Control kbCameraX = null;
 		private Control kbCameraY = null;
 		private Control kbJump = null;
+		private Control kbStart = null;
 
 		private List<AggregatedControl> aggregatedControls = null;
 
@@ -42,6 +44,8 @@ namespace GingerSnaps {
 			aggregatedControls.Add(cameraY);
 			jump = new AggregatedControl();
 			aggregatedControls.Add(jump);
+			start = new AggregatedControl();
+			aggregatedControls.Add(start);
 
 
 			//Mouse and keyboard scheme
@@ -59,6 +63,9 @@ namespace GingerSnaps {
 
 			kbJump = new Control() { axis = Keyboard.current.spaceKey };
 			jump.controlAlternatives.Add(kbJump);
+
+			kbStart = new Control() {axis = Keyboard.current.escapeKey };
+			start.controlAlternatives.Add(kbStart);
 
 		}
 
@@ -100,6 +107,8 @@ namespace GingerSnaps {
 					cameraY.controlAlternatives.Add(gpCameraY);
 					Control gpJump = new Control() { axis = currentGamepad.buttonSouth };
 					jump.controlAlternatives.Add(gpJump);
+					Control gpStart = new Control() { axis = currentGamepad.startButton };
+					start.controlAlternatives.Add(gpStart);
 
 					Debug.Log("Tracking new gamepad " + currentGamepad.name + " " + currentGamepad.deviceId);
 				}

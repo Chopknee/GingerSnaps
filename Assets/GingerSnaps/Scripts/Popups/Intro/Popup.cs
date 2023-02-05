@@ -8,6 +8,7 @@ namespace GingerSnaps.Popups.Intro {
 		private new Camera camera = null;
 
 		private RectTransform content = null;
+		private CanvasGroup canvasGroup = null;
 
 		private Dugan.UI.Button btnStart = null;
 		private Dugan.UI.Button btnQuit = null;
@@ -16,6 +17,7 @@ namespace GingerSnaps.Popups.Intro {
 			camera = transform.Find("Camera").GetComponent<Camera>();
 
 			content = transform.Find("Content") as RectTransform;
+			canvasGroup = content.GetComponent<CanvasGroup>();
 
 			btnStart = content.Find("BtnStart").gameObject.AddComponent<UI.ButtonGraphics>().button;
 			btnStart.OnPointerUp += OnClickBtnStart;
@@ -40,9 +42,34 @@ namespace GingerSnaps.Popups.Intro {
 			content.sizeDelta = Dugan.Screen.layoutSize;
 		}
 
-		protected override void OnAnimationUpdate() {
-			
+		private void Update() {
+			if (Input.start.bPressed) {
+				SetDirection(timeAnimation.GetDirection() > 0? -1 : 1);
+			}
 		}
 
+		protected override void OnAnimationUpdate() {
+			float a = timeAnimation.GetNormalizedTime();
+			a = Dugan.Mathf.Easing.EaseInOutCirc(a);
+			canvasGroup.alpha = a;
+		}
+
+		protected override void OnAnimationCompleteInt() {
+			if (timeAnimation.GetDirection() == -1) {
+				if (OnClosed != null)
+					OnClosed(this);
+			} else {
+				SetButtonsInteractive(true);
+			}
+
+			//Force sync transforms? Probably better to move this to the popups which set time scale
+			Physics.SyncTransforms();
+
+			OnAnimationComplete();
+		}
+
+		protected override void OnDisable() {
+			// base.OnDisable();
+		}
 	}
 }

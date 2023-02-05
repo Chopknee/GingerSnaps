@@ -58,7 +58,7 @@ namespace GingerSnaps {
 
 		protected virtual void OnAnimationUpdate() { }
 
-		private void OnAnimationCompleteInt() {
+		protected virtual void OnAnimationCompleteInt() {
 			if (timeAnimation.GetDirection() == -1) {
 				if (OnClosed != null)
 					OnClosed(this);

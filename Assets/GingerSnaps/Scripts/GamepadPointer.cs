@@ -25,7 +25,7 @@ namespace GingerSnaps {
 
 			cursorPopup = Dugan.PopupManager.Load<Popups.GamepadCursor.Popup>(true);
 			cursorPopup.PostAwake();
-			GameObject.DontDestroyOnLoad(cursorPopup.gameObject);
+			// GameObject.DontDestroyOnLoad(cursorPopup.gameObject);
 		}
 
 		private static int UpdateGamepadPointer() {
