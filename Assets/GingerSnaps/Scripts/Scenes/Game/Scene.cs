@@ -8,29 +8,36 @@ namespace GingerSnaps.Scenes.Game {
 		private new Camera camera = null;
 
 		private Player.Controller player = null;
-		private Player.CameraController playerCamera = null;
+		private Player.CameraControllerFixedAngle playerCamera = null;
+
+		private PPFx.SickProfileManager sickScreenEffect = null;
 
 		private void Awake() {
 			player = transform.Find("Player").gameObject.AddComponent<Player.Controller>();
-			playerCamera = new GameObject("PlayerCamera").AddComponent<Player.CameraController>();
-			playerCamera.transform.SetParent(player.transform);
+			player.jumpVelocity = 15.0f;
+			
+			playerCamera = new GameObject("PlayerCamera").AddComponent<Player.CameraControllerFixedAngle>();
+			playerCamera.transform.SetParent(transform);
 			playerCamera.target = player.transform;
-			playerCamera.targetOffset = new Vector3(0.0f, 1.0f, 0.0f);
-			playerCamera.collisionMask = 1 << 0;//Default layer
-
-			player.viewpoint = playerCamera.transform;
-			player.groundLayerMask = playerCamera.collisionMask;
+			playerCamera.forwardAngle = (Vector3.forward * 2.0f + Vector3.down).normalized;
+			playerCamera.transform.forward = playerCamera.forwardAngle;
+			playerCamera.followDistance = 23.0f;
 
 			camera = transform.Find("Camera").GetComponent<Camera>();
-
 			camera.transform.SetParent(playerCamera.transform);
 			camera.transform.localPosition = Vector3.zero;
 			camera.transform.localScale = Vector3.one;
 			camera.transform.localRotation = Quaternion.identity;
 
+			player.viewpoint = playerCamera.transform;
+			player.groundLayerMask = camera.cullingMask;
+
 			Popups.HUD.Popup hud = Dugan.PopupManager.Load<Popups.HUD.Popup>();
 			hud.PostAwake();
 			hud.SetDirection(1);
+
+			sickScreenEffect = gameObject.AddComponent<PPFx.SickProfileManager>();
+			
 		}
 
 	}
