@@ -55,7 +55,11 @@ namespace GingerSnaps.Popups.GamepadCursor {
 			if (Dugan.Input.Pointers.MousePointer.mousePointer.position != lastMouseCursorPos) {
 				hideTimer = 0.0f;
 				lastPointer = Dugan.Input.Pointers.MousePointer.mousePointer;
+				Debug.Log(lastPointer.position);
 			}
+			
+			if (lastPointer == null)
+				lastPointer = Dugan.Input.Pointers.MousePointer.mousePointer;
 			
 			cursor.localPosition = lastPointer.position * 2.0f;
 
