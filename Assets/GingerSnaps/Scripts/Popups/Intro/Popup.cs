@@ -52,6 +52,7 @@ namespace GingerSnaps.Popups.Intro {
 			float a = timeAnimation.GetNormalizedTime();
 			a = Dugan.Mathf.Easing.EaseInOutCirc(a);
 			canvasGroup.alpha = a;
+			Time.timeScale = 1.0f - a;
 		}
 
 		protected override void OnAnimationCompleteInt() {
