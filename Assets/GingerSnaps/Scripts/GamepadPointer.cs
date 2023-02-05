@@ -37,7 +37,7 @@ namespace GingerSnaps {
 			gamepadPointer.active = true;
 
 			Gamepad pad = Gamepad.current;
-			Vector2 delta = new Vector2(pad.rightStick.x.ReadValue(), pad.rightStick.y.ReadValue()) * speed * Time.deltaTime;
+			Vector2 delta = new Vector2(pad.rightStick.x.ReadValue(), pad.rightStick.y.ReadValue()) * speed * Time.unscaledDeltaTime;
 			position += delta;
 
 			if (position.x < 0)

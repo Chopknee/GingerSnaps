@@ -17,7 +17,7 @@ namespace GingerSnaps.UI {
 			if (button.GetPointerOver())
 				targetScale = 1.3f;
 
-			transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one * targetScale, Time.deltaTime * 10.0f);
+			transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one * targetScale, Time.unscaledDeltaTime * 10.0f);
 		}
 
 	}
