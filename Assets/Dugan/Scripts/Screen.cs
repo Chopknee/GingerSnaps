@@ -80,8 +80,10 @@ namespace Dugan {
 					);
 				}
 			}
-
+			// Debug.Log(screenWidth + " " + screenHeight);
 			CalculateSafeAreaOffsetsInUnits();
+			// TODO: FIX THIS BUG!
+			screenSizeInUnits = new Vector2(screenWidth, screenHeight);
 
 			//intended for global app utilities
 			if (OnEarlyResize != null)

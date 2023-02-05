@@ -55,7 +55,7 @@ namespace GingerSnaps.Popups.GamepadCursor {
 			if (Dugan.Input.Pointers.MousePointer.mousePointer.position != lastMouseCursorPos) {
 				hideTimer = 0.0f;
 				lastPointer = Dugan.Input.Pointers.MousePointer.mousePointer;
-				Debug.Log(lastPointer.position);
+				// Debug.Log(lastPointer.position);
 			}
 			
 			if (lastPointer == null)
@@ -70,6 +70,8 @@ namespace GingerSnaps.Popups.GamepadCursor {
 		protected override void OnResize() {
 			camera.orthographicSize = Dugan.Screen.layoutSize.y * 0.5f;
 			content.sizeDelta = Dugan.Screen.layoutSize;
+			content.anchoredPosition = - Dugan.Screen.screenSizeInUnits;
+			Debug.Log(Dugan.Screen.layoutSize);
 		}
 
 	}
