@@ -29,6 +29,9 @@ namespace GingerSnaps.Player {
 
 		public bool bAllowDoubleJump = false;
 
+		public bool bInvertVerticalAxis = false;
+		public bool bInvertHorizontalAxis = false;
+
 		[Header ("Debugging Values")]
 
 		public bool bTouchingGroundWithFeet = false;
@@ -93,7 +96,8 @@ namespace GingerSnaps.Player {
 				return;
 
 			//Axis information
-			Vector2 moveAxis = Input.GetNormalizedVector(Input.moveX.axisValue, Input.moveY.axisValue);//new Vector2(Input.moveX.axisValue, Input.moveY.axisValue);
+			Vector2 mul = new Vector2(bInvertHorizontalAxis? -1.0f : 1.0f, bInvertVerticalAxis? -1.0f : 1.0f);
+			Vector2 moveAxis = Input.GetNormalizedVector(Input.moveX.axisValue, Input.moveY.axisValue) * mul;//new Vector2(Input.moveX.axisValue, Input.moveY.axisValue);
 			float moveAxisMag = moveAxis.magnitude;
 
 			Vector3 vpForward = viewpoint.forward;
