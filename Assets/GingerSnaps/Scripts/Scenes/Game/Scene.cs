@@ -12,6 +12,8 @@ namespace GingerSnaps.Scenes.Game {
 
 		private PPFx.SickProfileManager sickScreenEffect = null;
 
+		private static Scene Instance = null;
+
 		private void Awake() {
 			player = transform.Find("Player").gameObject.AddComponent<Player.Controller>();
 			player.jumpVelocity = 15.0f;
@@ -38,6 +40,18 @@ namespace GingerSnaps.Scenes.Game {
 
 			sickScreenEffect = gameObject.AddComponent<PPFx.SickProfileManager>();
 			
+			Instance = this;
+		}
+
+		public IEnumerator SickEnumerator() {
+			Debug.Log("SOMETHING");
+			sickScreenEffect.SetDirection(-1);
+			yield return new WaitForSeconds(10.0f);
+			sickScreenEffect.SetDirection(-1);
+		}
+
+		public static void DoSick() {
+			Instance.StartCoroutine(Instance.SickEnumerator());
 		}
 
 	}
