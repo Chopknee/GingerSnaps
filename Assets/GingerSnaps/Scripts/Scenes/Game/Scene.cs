@@ -73,10 +73,10 @@ namespace GingerSnaps.Scenes.Game {
 			yield return new WaitForSeconds(gameLength);
 			// Display score for a short period
 			hud.SetDirection(1);
-			yield return new WaitForSeconds(2.0f);
-			hud.SetScoreValue(100);
+			yield return new WaitForSeconds(1.0f);
+			hud.SetScoreValue(score);
 			// Restart the game
-			yield return new WaitForSeconds(5.0f);
+			yield return new WaitForSeconds(10.0f);
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 
