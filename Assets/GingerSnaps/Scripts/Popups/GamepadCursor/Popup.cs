@@ -71,7 +71,6 @@ namespace GingerSnaps.Popups.GamepadCursor {
 			camera.orthographicSize = Dugan.Screen.layoutSize.y * 0.5f;
 			content.sizeDelta = Dugan.Screen.layoutSize;
 			content.anchoredPosition = - Dugan.Screen.screenSizeInUnits;
-			Debug.Log(Dugan.Screen.layoutSize);
 		}
 
 	}

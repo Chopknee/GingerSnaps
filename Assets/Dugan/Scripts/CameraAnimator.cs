@@ -32,7 +32,7 @@ namespace Dugan {
 		}
 
 		public void MoveToTime(Vector3 endPosition, Quaternion endLookDirection, float duration) {
-			if (timeAnimation.IsPlaying()) {
+			if (timeAnimation.IsAnimating()) {
 				//Set up to animate differently
 			} else {
 				ResetTimeAnimation();

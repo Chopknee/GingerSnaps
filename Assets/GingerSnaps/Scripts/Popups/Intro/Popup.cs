@@ -25,8 +25,9 @@ namespace GingerSnaps.Popups.Intro {
 			btnQuit = content.Find("BtnQuit").gameObject.AddComponent<UI.ButtonGraphics>().button;
 			btnQuit.OnPointerUp += OnClickBtnQuit;
 
+			gameObject.name = "Intro.Popup";
+
 			base.Awake();
-			base.PostAwake();
 		}
 
 		private void OnClickBtnStart(Dugan.Input.PointerTarget target, string args) {
@@ -53,24 +54,6 @@ namespace GingerSnaps.Popups.Intro {
 			a = Dugan.Mathf.Easing.EaseInOutCirc(a);
 			canvasGroup.alpha = a;
 			Time.timeScale = 1.0f - a;
-		}
-
-		protected override void OnAnimationCompleteInt() {
-			if (timeAnimation.GetDirection() == -1) {
-				if (OnClosed != null)
-					OnClosed(this);
-			} else {
-				SetButtonsInteractive(true);
-			}
-
-			//Force sync transforms? Probably better to move this to the popups which set time scale
-			Physics.SyncTransforms();
-
-			OnAnimationComplete();
-		}
-
-		protected override void OnDisable() {
-			// base.OnDisable();
 		}
 	}
 }

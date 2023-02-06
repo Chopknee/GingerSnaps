@@ -14,6 +14,8 @@ namespace GingerSnaps.Scenes.Game {
 
 		private static Scene Instance = null;
 
+		private Popups.Intro.Popup intro = null;
+
 		private void Awake() {
 			player = transform.Find("Player").gameObject.AddComponent<Player.Controller>();
 			player.jumpVelocity = 15.0f;
@@ -34,13 +36,17 @@ namespace GingerSnaps.Scenes.Game {
 			player.viewpoint = playerCamera.transform;
 			player.groundLayerMask = camera.cullingMask;
 
+			sickScreenEffect = gameObject.AddComponent<PPFx.SickProfileManager>();
+			
+			Instance = this;
+
 			Popups.HUD.Popup hud = Dugan.PopupManager.Load<Popups.HUD.Popup>();
 			hud.PostAwake();
 			hud.SetDirection(1);
 
-			sickScreenEffect = gameObject.AddComponent<PPFx.SickProfileManager>();
-			
-			Instance = this;
+			intro = Dugan.PopupManager.LoadNoAdd<Popups.Intro.Popup>();
+			intro.transform.position = new Vector3(2000.0f, 0.0f, 0.0f);
+			intro.PostAwake();
 		}
 
 		public IEnumerator SickEnumerator() {

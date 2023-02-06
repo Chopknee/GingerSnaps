@@ -70,6 +70,34 @@ namespace Dugan {
 			return Load<T>(path, bKeepCameraDepth);
 		}
 
+		public static GameObject LoadNoAdd(string path) {
+			GameObject resource = Resources.Load<GameObject>(path);
+			if (resource == null)
+				return null;
+
+			GameObject popupGameObject = Instantiate(resource);
+			return popupGameObject;
+		}
+		
+		public static T LoadNoAdd<T>(string path) where T : MonoBehaviour {
+			GameObject go = LoadNoAdd(path);
+			if (go == null)
+				return null;
+			
+			T component = go.GetComponent<T>();
+			if (component == null)
+				component = go.AddComponent<T>();
+
+			return component;
+		}
+
+		public static T LoadNoAdd<T>() where T : MonoBehaviour {
+			System.Type t = typeof(T);
+			string path = t.Namespace + "." + t.Name;
+			path = path.Replace('.', '/');
+			return LoadNoAdd<T>(path);
+		}
+
 		public static void Unload(GameObject _popup) {
 
 			Popup popupToDelete = null;

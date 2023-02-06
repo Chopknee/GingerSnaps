@@ -75,6 +75,8 @@ namespace GingerSnaps.Player {
 			}
 			set {
 				float mag = value.magnitude;
+				if (float.IsNaN(mag))
+					return;
 				// rigidBody.velocity = transform.TransformDirection(value.normalized) * mag;
 				rigidBody.AddForce(transform.TransformDirection(value.normalized) * mag - rigidBody.velocity, ForceMode.VelocityChange);
 			}

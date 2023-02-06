@@ -13,6 +13,8 @@ namespace GingerSnaps.Scenes.PlatformTesting {
 
 		private PPFx.SickProfileManager sickScreenEffect = null;
 
+		private Popups.Intro.Popup intro = null;
+
 		private void Awake() {
 			player = transform.Find("Player").gameObject.AddComponent<Player.Controller>();
 			player.jumpVelocity = 15.0f;
@@ -33,18 +35,18 @@ namespace GingerSnaps.Scenes.PlatformTesting {
 			player.viewpoint = playerCamera.transform;
 			player.groundLayerMask = camera.cullingMask;
 
-			Popups.HUD.Popup hud = Dugan.PopupManager.Load<Popups.HUD.Popup>();
-			hud.PostAwake();
-			hud.SetDirection(1);
-
 			sickScreenEffect = gameObject.AddComponent<PPFx.SickProfileManager>();
 
-			Invoke("Wait", 5.0f);
-			
-		}
+			// Popups.HUD.Popup hud = Dugan.PopupManager.Load<Popups.HUD.Popup>();
+			// hud.bDestroyOnClose = true;
+			// hud.PostAwake();
+			// hud.SetDirection(1);
 
-		private void Wait() {
-			sickScreenEffect.SetDirection(1);
+			intro = Dugan.PopupManager.LoadNoAdd<Popups.Intro.Popup>();
+			intro.bDestroyOnClose = false;
+			intro.transform.position = new Vector3(2000.0f, 0.0f, 0.0f);
+			intro.PostAwake();
+			
 		}
 
 	}

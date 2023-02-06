@@ -9,6 +9,8 @@ namespace GingerSnaps {
 		public Event OnClosed;
 		public Event OnCloseBegin;
 
+		public bool bDestroyOnClose = false;
+
 		protected Dugan.TimeAnimation timeAnimation = null;
 
 		protected Dugan.UI.Button[] buttons = null;
@@ -50,7 +52,7 @@ namespace GingerSnaps {
 				Debug.Log("You probably forgot to run post awake on popup " + gameObject.name + "!");
 				return;
 			}
-
+			
 			for (int i = 0; i < buttons.Length; i++) {
 				buttons[i].SetInteractive(bInteractive, -1);
 			}
@@ -62,7 +64,9 @@ namespace GingerSnaps {
 			if (timeAnimation.GetDirection() == -1) {
 				if (OnClosed != null)
 					OnClosed(this);
-				Dugan.PopupManager.Unload(gameObject);
+
+				if (bDestroyOnClose)
+					Dugan.PopupManager.Unload(gameObject);
 			} else {
 				SetButtonsInteractive(true);
 			}
@@ -77,13 +81,8 @@ namespace GingerSnaps {
 		public virtual void OnSystemBackReleased() {}
 		protected virtual void OnResize() {}
 
-		protected virtual void OnDisable() {
+		protected virtual void OnDestroy() {
 			Dugan.Screen.OnResize -= OnResize;
-			OnUnload();
-		}
-
-		protected virtual void OnUnload() {
-
 		}
 
 	}
