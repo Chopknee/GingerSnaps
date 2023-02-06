@@ -46,7 +46,7 @@ namespace GingerSnaps.Scenes.PlatformTesting {
 			intro.bDestroyOnClose = false;
 			intro.transform.position = new Vector3(2000.0f, 0.0f, 0.0f);
 			intro.PostAwake();
-			
+			sickScreenEffect.SetDirection(1);
 		}
 
 	}

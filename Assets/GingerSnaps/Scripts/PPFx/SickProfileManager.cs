@@ -11,9 +11,9 @@ namespace GingerSnaps.PPFx {
 		private PPFx.Distortion.Distortion distortionEffect = null;
 		private ChromaticAberration chromaticAberrationEffect = null;
 
-		private float targetDistortionScale = 0.0f;
-		private float targetDistortionImpact = 0.0f;
-		private float targetCAIntensity = 0.0f;
+		private float targetDistortionScale = 8.0f;
+		private float targetDistortionImpact = 0.02f;
+		private float targetCAIntensity = 0.5f;
 
 		private void Awake() {
 			volume = gameObject.AddComponent<PostProcessVolume>();
@@ -22,9 +22,9 @@ namespace GingerSnaps.PPFx {
 			volume.profile.TryGetSettings<PPFx.Distortion.Distortion>(out distortionEffect);
 			volume.profile.TryGetSettings<ChromaticAberration>(out chromaticAberrationEffect);
 
-			targetDistortionScale = distortionEffect.scale.value;
-			targetDistortionImpact = distortionEffect.impact.value;
-			targetCAIntensity = chromaticAberrationEffect.intensity.value;
+			// targetDistortionScale = distortionEffect.scale.value;
+			// targetDistortionImpact = distortionEffect.impact.value;
+			// targetCAIntensity = chromaticAberrationEffect.intensity.value;
 
 			AnimationUpdateCallback += OnAnimationUpdate;
 			SetDirectionCallback += OnSetDirection;

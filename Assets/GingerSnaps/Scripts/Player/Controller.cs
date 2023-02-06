@@ -340,6 +340,13 @@ namespace GingerSnaps.Player {
 		}
 
 		private void OnCollisionEnter(Collision collisionInfo) {
+			//Prevent duplicate contacts
+			for (int i = 0; i < lastContacts.Count; i++) {
+				if (lastContacts[i].collider == collisionInfo.collider) {
+					return;
+				}
+			}
+
 			//possibly need to keep track of the contact point to ensure raycasting is correct?
 			ContactingObject obj = new ContactingObject();
 			obj.collider = collisionInfo.collider;
@@ -352,6 +359,7 @@ namespace GingerSnaps.Player {
 					obj.contacts[i].separation = contactPoint.separation;
 				}
 			}
+
 			lastContacts.Add(obj);
 		}
 

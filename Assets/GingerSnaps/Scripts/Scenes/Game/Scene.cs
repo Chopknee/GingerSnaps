@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace GingerSnaps.Scenes.Game {
 	public class Scene : MonoBehaviour {
+
+		public float gameLength = 60.0f;
 
 		private new Camera camera = null;
 
@@ -15,6 +18,13 @@ namespace GingerSnaps.Scenes.Game {
 		private static Scene Instance = null;
 
 		private Popups.Intro.Popup intro = null;
+
+		private Popups.HUD.Popup hud = null;
+
+		public int score = 0;
+		private float sickTime = 0.0f;
+
+		private bool bPlaying = false;
 
 		private void Awake() {
 			player = transform.Find("Player").gameObject.AddComponent<Player.Controller>();
@@ -36,28 +46,65 @@ namespace GingerSnaps.Scenes.Game {
 			player.viewpoint = playerCamera.transform;
 			player.groundLayerMask = camera.cullingMask;
 
+			Transform pots = transform.Find("Pots");
+			for (int i = 0; i < pots.childCount; i++) {
+				Destructable des = pots.GetChild(i).GetComponent<Destructable>();
+				if (des == null)
+					continue;
+				des.OnBroken += OnPotBroken;
+			}
+
 			sickScreenEffect = gameObject.AddComponent<PPFx.SickProfileManager>();
 			
 			Instance = this;
 
-			Popups.HUD.Popup hud = Dugan.PopupManager.Load<Popups.HUD.Popup>();
+			hud = Dugan.PopupManager.Load<Popups.HUD.Popup>();
 			hud.PostAwake();
-			hud.SetDirection(1);
+			hud.SetDirection(-1, true);
 
 			intro = Dugan.PopupManager.LoadNoAdd<Popups.Intro.Popup>();
 			intro.transform.position = new Vector3(2000.0f, 0.0f, 0.0f);
 			intro.PostAwake();
+			intro.OnClosed += OnIntroClosed;
 		}
 
-		public IEnumerator SickEnumerator() {
-			Debug.Log("SOMETHING");
-			sickScreenEffect.SetDirection(-1);
-			yield return new WaitForSeconds(10.0f);
-			sickScreenEffect.SetDirection(-1);
+		private IEnumerator Game() {
+			// Allow the game to run for a while.
+			yield return new WaitForSeconds(gameLength);
+			// Display score for a short period
+			hud.SetDirection(1);
+			yield return new WaitForSeconds(2.0f);
+			hud.SetScoreValue(100);
+			// Restart the game
+			yield return new WaitForSeconds(5.0f);
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 
-		public static void DoSick() {
-			Instance.StartCoroutine(Instance.SickEnumerator());
+		public static void AddScore(int score) {
+			score += score;
+		}
+
+		private void Update() {
+			if (sickScreenEffect.GetDirection() > 0) {
+				sickTime += Time.deltaTime;
+				if (sickTime >= 10.0f)
+					sickScreenEffect.SetDirection(-1);
+			}
+		}
+
+		private void OnIntroClosed(Popup popup) {
+			if (bPlaying)
+				return;
+
+			bPlaying = true;
+			StartCoroutine(Game());
+		}
+
+		private void OnPotBroken(Destructable destructable) {
+			AddScore(destructable.scoreValue);
+			if (destructable.bDoCatnip) {
+				sickScreenEffect.SetDirection(1);
+			}
 		}
 
 	}
