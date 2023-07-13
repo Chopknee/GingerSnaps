@@ -1,0 +1,40 @@
+{
+    "bEnabled": true,
+    "bMoveBurstDebugFolder": true,
+    "bZipOnBuildFinish": false,
+    "launcherData": {
+        "windowSize": {
+            "x": 640.0,
+            "y": 480.0
+        },
+        "bUseDataPath": true,
+        "bUseAsLoadingScreen": false,
+        "bUseCustomResolutions": false,
+        "customResolutions": [],
+        "launcherWindowTitle": "Application Launcher",
+        "exeName": "Application",
+        "qualitySettings": [],
+        "customOptions": [
+            {
+                "key": "AutoLaunchCountdown",
+                "value": "10"
+            }
+        ]
+    },
+    "validationString": "PlowLauncher.Configuration.Valid",
+    "bIncludeAppVersionString": true,
+    "scenePath": "Assets/PlowLauncherDefaultAssets/LauncherScene.unity",
+    "bOverrideProjectIcon": false,
+    "defaultIcon": "",
+    "bOverrideDefaultIcon": false,
+    "iconOverrides": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ]
+}

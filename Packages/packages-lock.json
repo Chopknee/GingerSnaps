@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.plowdigital.plowlauncher": {
+      "version": "https://git.chopknee.net/plow-digital/plow-launcher-plugin.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "e70abdc9e580c10bf401dd64d41d9ced42b9f77e"
+    },
     "com.unity.collab-proxy": {
       "version": "1.15.15",
       "depth": 0,
